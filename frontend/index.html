@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI App Compiler</title>
+</head>
+
+<body>
+
+    <h1>AI App Compiler</h1>
+
+    <h3>Enter Application Idea</h3>
+
+    <input type="text" id="prompt" placeholder="Build a CRM with login dashboard payments" size="50">
+
+    <br><br>
+
+    <button onclick="generateApp()">
+        Generate
+    </button>
+
+    <h3>Generated Output</h3>
+
+    <pre id="output"></pre>
+
+
+    <script>
+        async function generateApp() {
+
+            const prompt =
+                document.getElementById("prompt").value;
+
+
+            const response = await fetch(
+                "http://127.0.0.1:8000/generate", {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+
+                    body: JSON.stringify({
+                        prompt: prompt
+                    })
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            document.getElementById("output")
+                .textContent =
+                JSON.stringify(
+                    data,
+                    null,
+                    4
+                );
+
+        }
+    </script>
+
+</body>
+
+</html>
